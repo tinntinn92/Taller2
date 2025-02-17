@@ -72,10 +72,15 @@ public class Paseo {
 		
 		for(int i = 0; i< boletosComprados.largo(); i++)
 		{
+			if(boletosComprados.kesimo(i).getEdadPasajero() < 18)
+				aux = precioBase * 0.75;
+			else
+				aux = precioBase;
+			
 			if(boletosComprados.kesimo(i).getEsEspecial())
 			{
-				aux = 0;
-				aux = precioBase * ((Especial) boletosComprados.kesimo(i)).getDescuento() / 100;
+				
+				aux = aux * ((Especial) boletosComprados.kesimo(i)).getDescuento() / 100;
 				total = total + aux;
 				
 			}else
