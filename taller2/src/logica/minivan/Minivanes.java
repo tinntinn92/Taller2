@@ -2,6 +2,8 @@ package logica.minivan;
 
 import java.util.TreeMap;
 
+import logica.valueObjects.VOMinivan;
+
 public class Minivanes {
 	
 	private TreeMap<String, Minivan> minivanes;
@@ -30,7 +32,20 @@ public class Minivanes {
 	}
 	
 	//Devuelve un arreglo de todas las minivanes de la coleccion
-	//public VOMinivan[] listarMinivanes()
+	public VOMinivan[] listarMinivanes()
+	{
+		int i = 0;
+		VOMinivan aux [] = new VOMinivan[minivanes.size()];
+		
+		for(Minivan mini : minivanes.values())
+		{
+			aux[i] = new VOMinivan(mini.getMatricula(), mini.getMarca(), mini.getModelo(), mini.getCantAsientos(), mini.getPaseosAasignados().largo());
+			
+			i++;
+		}
+		
+		return aux;
+	}
 	
 
 }

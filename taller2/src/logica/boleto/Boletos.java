@@ -2,6 +2,8 @@ package logica.boleto;
 
 import java.util.ArrayList;
 
+import logica.valueObjects.VOBoleto;
+
 public class Boletos {
 	
 	private ArrayList<Boleto> boletos;
@@ -40,11 +42,25 @@ public class Boletos {
 		return es;
 	}
 	//Devuelve un arreglo de objetos para listar
-	/*public VOBoleto[] listarBoletos() 
-	  {
+	public VOBoleto[] listarBoletos() 
+	{
+		int i = 0;
+		VOBoleto aux [] = new VOBoleto[boletos.size()];
+		
+		
+		for(Boleto boleto : boletos)
+		{
+			if(boleto.getEsEspecial())
+				aux[i] = new VOBoleto(boleto.getNumero(), boleto.getNombrePasajero(), boleto.getEdadPasajero(), boleto.getNumeroCelular(), ((Especial) boleto).getDescuento());
+			else
+				aux[i] = new VOBoleto(boleto.getNumero(), boleto.getNombrePasajero(), boleto.getEdadPasajero(), boleto.getNumeroCelular(), 0);
+			
+			i++;
+		}
+		
+		return aux;
+	}
 	  
-	  }
-	  */
 	
 	
 }

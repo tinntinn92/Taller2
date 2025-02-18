@@ -3,6 +3,7 @@ package logica.paseo;
 import java.time.LocalTime;
 
 import logica.boleto.*;
+import logica.valueObjects.VOBoleto;
 
 public class Paseo {
 	
@@ -62,8 +63,17 @@ public class Paseo {
 		return cantMaxBoletosVendibles;
 	}
 	
+	//Devuelve los boletos comprados
+	public Boletos getBoletosComprados()
+	{
+		return boletosComprados;
+	}
+	
 	//Devuelve un arreglo de boletos comprados
-	//public VOBoleto[] listarBoletosComprados()
+	public VOBoleto[] listarBoletosComprados()
+	{
+		return boletosComprados.listarBoletos();
+	}
 	
 	//Devuelve el total recaudado del paseo
 	public double contarRecaudado()

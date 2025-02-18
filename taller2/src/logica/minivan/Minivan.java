@@ -3,6 +3,7 @@ package logica.minivan;
 import java.time.LocalTime;
 
 import logica.paseo.*;
+import logica.valueObjects.VOPaseo;
 
 public class Minivan {
 	
@@ -45,6 +46,12 @@ public class Minivan {
 		return cantAsientos;
 	}
 	
+	//Devuelve los paseos de la minivan
+	public Paseos getPaseosAasignados()
+	{
+		return paseosAsignados;
+	}
+	
 	//Agrega un paseo a la minivan
 	public void agregarPaseo(Paseo pa)
 	{
@@ -52,7 +59,11 @@ public class Minivan {
 	}
 	
 	//Devuelve un arreglo con los paseos de la minivan
-	//public VOPaseo[] listarPaseos()
+	public VOPaseo[] listarPaseos()
+	{
+		return paseosAsignados.listarPaseos();
+		
+	}
 	
 	//Devuelve true si hay horario disponible para agregar el paseo
 	public boolean disponibleEnHorario(LocalTime salida, LocalTime llegada)

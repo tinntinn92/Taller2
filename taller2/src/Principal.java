@@ -3,6 +3,7 @@ import java.time.LocalTime;
 
 import logica.boleto.*;
 import logica.paseo.*;
+import logica.valueObjects.*;
 
 public class Principal {
 
@@ -15,6 +16,7 @@ public class Principal {
 		Paseo ps2 = new Paseo("MVD002", "Montevideo", LocalTime.of(15, 00), LocalTime.of(22, 00), 1200, 15);
 		Paseo pa3 = new Paseo("PIR003", "Piriapolis", LocalTime.of(16, 00), LocalTime.of(17, 00), 2200, 20);
 		Paseos dic = new Paseos();
+		 
 		
 		System.out.println(pa.getCodigo() + "\n");
 		System.out.println(pa.getDestino() + "\n");
@@ -42,7 +44,9 @@ public class Principal {
 		
 		if(dic.disponibleEnHorario(pa3.getHoraPartida(),pa3.getHoraLlegada()))
 			System.out.println("\n No Se solapan");
-
+		
+		
+		
 
 
 		

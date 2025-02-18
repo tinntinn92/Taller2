@@ -1,6 +1,9 @@
 package logica.paseo;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.TreeMap;
+
+import logica.valueObjects.VOPaseo;
 
 public class Paseos {
 	
@@ -30,11 +33,58 @@ public class Paseos {
 		paseos.putIfAbsent(pa.getCodigo(), pa);
 	}
 	
+	//Devuelve la cantidad de objetos en la coleccion
+	public int largo()
+	{
+		return paseos.size();
+	}
+	
 	//Devuelve un arreglo con los paseos que coincida el destino ingresado
-	//public VOPaseo[] listarPaseosDestino(String dest)
+	public VOPaseo[] listarPaseosDestino(String dest)
+	{
+		VOPaseo aux [];
+		ArrayList<String> lis = new ArrayList<String>();
+		int i=0;
+		
+		for(String clave : paseos.keySet())
+		{
+			if(clave.equals(dest))
+				lis.add(clave);
+		}
+		
+		aux = new VOPaseo[lis.size()];
+
+		for(String clave : lis)
+		{
+			Paseo buffer = paseos.get(clave);
+			
+			aux[i] = new VOPaseo(buffer.getCodigo(), buffer.getDestino(), buffer.getHoraLlegada(), buffer.getHoraPartida(), buffer.getPrecioBase(), buffer.getCantMaxBoletosVendibles(), buffer.largoBoletos());
+				
+			i++;
+		}
+
+		
+		return aux;
+		
+		
+		
+	}
 	
 	//Devuelve un arreglo con todos los paseos
-	//public VOPaseo[] listarPaseos()
+	public VOPaseo[] listarPaseos()
+	{
+		VOPaseo aux [] = new VOPaseo[paseos.size()];
+		int i = 0;
+		
+		for(Paseo pa : paseos.values())
+		{
+			aux[i] = new VOPaseo(pa.getCodigo(),pa.getDestino(), pa.getHoraLlegada(), pa.getHoraPartida(), pa.getPrecioBase(), pa.getCantMaxBoletosVendibles(), pa.largoBoletos());
+			
+			i++;
+		}
+		
+		return aux;
+	}
 	
 	//Devuelve true si no hay ningun paseo que se solape en el horario
 	public boolean disponibleEnHorario(LocalTime salida, LocalTime llegada)
