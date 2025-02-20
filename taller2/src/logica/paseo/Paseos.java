@@ -46,10 +46,10 @@ public class Paseos {
 		ArrayList<String> lis = new ArrayList<String>();
 		int i=0;
 		
-		for(String clave : paseos.keySet())
+		for(Paseo clave : paseos.values())
 		{
-			if(clave.equals(dest))
-				lis.add(clave);
+			if(clave.getDestino().equals(dest))
+				lis.add(clave.getCodigo());
 		}
 		
 		aux = new VOPaseo[lis.size()];
@@ -69,6 +69,38 @@ public class Paseos {
 		
 		
 	}
+	
+	//Devuelve un arreglo con los paseos que tengan por lo menos la cantida dde boletos dispoibles
+	public VOPaseo[] listarPaseosBoletosDispoibles(int cant)
+	{
+		VOPaseo aux [];
+		ArrayList<String> lis = new ArrayList<String>();
+		int i=0;
+		
+		for(Paseo clave : paseos.values())
+		{
+			if(clave.disponibles() >= cant)
+				lis.add(clave.getCodigo());
+		}
+		
+		aux = new VOPaseo[lis.size()];
+
+		for(String clave : lis)
+		{
+			Paseo buffer = paseos.get(clave);
+			
+			aux[i] = new VOPaseo(buffer.getCodigo(), buffer.getDestino(), buffer.getHoraLlegada(), buffer.getHoraPartida(), buffer.getPrecioBase(), buffer.getCantMaxBoletosVendibles(), buffer.largoBoletos());
+				
+			i++;
+		}
+
+		
+		return aux;
+		
+		
+		
+	}	
+	
 	
 	//Devuelve un arreglo con todos los paseos
 	public VOPaseo[] listarPaseos()

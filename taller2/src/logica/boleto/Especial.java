@@ -4,10 +4,10 @@ public class Especial extends Boleto {
 	
 	private int descuento;
 	
-	public Especial(int num, String nom, int ed, long cel, int des)
+	public Especial(int num, String nom, int ed, long cel, int d)
 	{
 		super(num, nom, ed, cel);
-		descuento = des;
+		descuento = d;
 	}
 	
 	//Devuelve el descuento

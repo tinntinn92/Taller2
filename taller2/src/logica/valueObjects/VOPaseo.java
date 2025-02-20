@@ -6,6 +6,7 @@ public class VOPaseo extends VOIngresoPaseo{
 	
 	private int cantMaxBoletosVendible;
 	private int cantBoletosComprados;
+	private int boletosDispoibles;
 	
 	public VOPaseo(String cod, String des, LocalTime lle, LocalTime sal, double pre, int max, int comp)
 	{
@@ -13,6 +14,7 @@ public class VOPaseo extends VOIngresoPaseo{
 		
 		cantMaxBoletosVendible = max;
 		cantBoletosComprados = comp;
+		boletosDispoibles = max - comp;
 	}
 	
 	//Devuelve la cantidad maxima de boletos vendibles
@@ -25,6 +27,12 @@ public class VOPaseo extends VOIngresoPaseo{
 	public int getCantBoletosComprados()
 	{
 		return cantBoletosComprados;
+	}
+	
+	//Devuelve la cantidad de boletos disponibles
+	public int getBoletosDispoibles()
+	{
+		return boletosDispoibles;
 	}
 
 }

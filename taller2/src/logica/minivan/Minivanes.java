@@ -1,5 +1,6 @@
 package logica.minivan;
 
+import java.time.LocalTime;
 import java.util.TreeMap;
 
 import logica.valueObjects.VOMinivan;
@@ -47,5 +48,22 @@ public class Minivanes {
 		return aux;
 	}
 	
+	//Devuelve la primer minivan disponible en el horario
+	public Minivan primeraDisponible(LocalTime salida, LocalTime llegada)
+	{
+		Minivan resu = null;
+		
+		for(Minivan mini : minivanes.values())
+		{
+			if(mini.disponibleEnHorario(salida, llegada))
+			{
+				resu = mini;
+				break;
+			}
+		}
+		
+		return resu;
+				
+	}
 
 }

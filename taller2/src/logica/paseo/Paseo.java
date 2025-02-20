@@ -125,6 +125,11 @@ public class Paseo {
 		return boletosComprados.largo();
 	}
 	
+	//Devuelve la cantida de boletos dispoibles
+	public int disponibles()
+	{
+		return cantMaxBoletosVendibles - boletosComprados.largo();
+	}
 	
 
 }

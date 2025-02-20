@@ -6,9 +6,9 @@ public class VOBoleto {
 	private String nombrePasajero;
 	private int edadPasajero;
 	private long numeroCelular;
-	private double descuento;
+	private int descuento;
 	
-	public VOBoleto(int num, String nom, int ed, long cel, double desc)
+	public VOBoleto(int num, String nom, int ed, long cel, int desc)
 	{
 		numero = num;
 		nombrePasajero = nom;
@@ -42,7 +42,7 @@ public class VOBoleto {
 	}
 	
 	//Devuelve el descuento
-	public double getDescuento()
+	public int getDescuento()
 	{
 		return descuento;
 	}

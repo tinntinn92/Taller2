@@ -60,6 +60,38 @@ public class Boletos {
 		
 		return aux;
 	}
+	
+	//Devuelve un listado de boletos especiales si es true y comunes si es false
+	public VOBoleto[] listadoPorTipo(boolean especial)
+	{
+		int i = 0, contador = 0;
+		
+		for(Boleto boleto : boletos)
+		{
+			if(boleto.getEsEspecial() == especial)
+				contador++;
+		}
+		
+		VOBoleto aux[] = new VOBoleto[contador];
+		
+		for(Boleto boleto : boletos)
+		{
+			if(boleto.getEsEspecial() == especial)
+			{
+				if(especial)
+				{
+					aux[i] = new VOBoleto(boleto.getNumero(), boleto.getNombrePasajero(), boleto.getEdadPasajero(), boleto.getNumeroCelular(), ((Especial) boleto).getDescuento());
+					i++;
+				}else
+				{
+					aux[i] = new VOBoleto(boleto.getNumero(), boleto.getNombrePasajero(), boleto.getEdadPasajero(), boleto.getNumeroCelular(), 0);
+					i++;
+				}
+			}
+		}
+		
+		return aux;
+	}
 	  
 	
 	
