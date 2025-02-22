@@ -1,10 +1,13 @@
 package logica.boleto;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import logica.valueObjects.VOBoleto;
 
-public class Boletos {
+public class Boletos implements Serializable
+{
+	private static final long serialVersionUID = 1L;
 	
 	private ArrayList<Boleto> boletos;
 	

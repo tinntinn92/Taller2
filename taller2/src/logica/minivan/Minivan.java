@@ -1,11 +1,14 @@
 package logica.minivan;
 
+import java.io.Serializable;
 import java.time.LocalTime;
 
 import logica.paseo.*;
 import logica.valueObjects.VOPaseo;
 
-public class Minivan {
+public class Minivan implements Serializable
+{
+	private static final long serialVersionUID = 1L;
 	
 	private String matricula;
 	private String marca;

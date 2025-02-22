@@ -1,11 +1,14 @@
 package logica.paseo;
+import java.io.Serializable;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.TreeMap;
 
 import logica.valueObjects.VOPaseo;
 
-public class Paseos {
+public class Paseos implements Serializable
+{
+	private static final long serialVersionUID = 1L;
 	
 	private TreeMap<String,Paseo> paseos;
 	

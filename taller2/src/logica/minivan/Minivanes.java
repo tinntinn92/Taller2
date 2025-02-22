@@ -1,11 +1,14 @@
 package logica.minivan;
 
+import java.io.Serializable;
 import java.time.LocalTime;
 import java.util.TreeMap;
 
 import logica.valueObjects.VOMinivan;
 
-public class Minivanes {
+public class Minivanes implements Serializable
+{
+	private static final long serialVersionUID = 1L;
 	
 	private TreeMap<String, Minivan> minivanes;
 	

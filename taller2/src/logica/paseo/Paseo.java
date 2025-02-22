@@ -1,11 +1,14 @@
 package logica.paseo;
 
+import java.io.Serializable;
 import java.time.LocalTime;
 
 import logica.boleto.*;
 import logica.valueObjects.VOBoleto;
 
-public class Paseo {
+public class Paseo implements Serializable
+{
+	private static final long serialVersionUID = 1L;
 	
 	private String codigo;
 	private String destino;
@@ -78,7 +81,7 @@ public class Paseo {
 	//Devuelve el total recaudado del paseo
 	public double contarRecaudado()
 	{
-		double total = 0, aux;
+		double total = 0, aux, descuento;
 		
 		for(int i = 0; i< boletosComprados.largo(); i++)
 		{
@@ -90,7 +93,8 @@ public class Paseo {
 			if(boletosComprados.kesimo(i).getEsEspecial())
 			{
 				
-				aux = aux * ((Especial) boletosComprados.kesimo(i)).getDescuento() / 100;
+				descuento = aux * ((Especial) boletosComprados.kesimo(i)).getDescuento() / 100;
+				aux -= descuento;
 				total = total + aux;
 				
 			}else

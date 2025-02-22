@@ -1,51 +1,142 @@
 
 import java.time.LocalTime;
 
-import logica.boleto.*;
-import logica.paseo.*;
+import logica.CapaLogica;
 import logica.valueObjects.*;
+import logica.excepciones.*;
 
 public class Principal {
 
 	public static void main(String[] args) {
 		
-		Boleto bol = new Boleto(0, "Manuel", 54, 267436);
-		Boleto bol2 = new Boleto(3, "	Maria", 15, 287431);
-		Especial espe = new Especial(1, "Esteban", 7, 267436, 50);
-		Paseo pa = new Paseo("PDE001", "Punta del este", LocalTime.of(15, 00), LocalTime.of(18, 00), 1600, 10);
-		Paseo ps2 = new Paseo("MVD002", "Montevideo", LocalTime.of(15, 00), LocalTime.of(22, 00), 1200, 15);
-		Paseo pa3 = new Paseo("PIR003", "Piriapolis", LocalTime.of(16, 00), LocalTime.of(17, 00), 2200, 20);
-		Paseos dic = new Paseos();
-		 
+		CapaLogica fachada = new CapaLogica();
+		VOIngresoMinivan mini = new VOIngresoMinivan("ASE105", "Ford", "Ecosport", 1);
+		VOIngresoPaseo pas = new VOIngresoPaseo("PDE001", "Punta del este", LocalTime.of(16, 00), LocalTime.of(18, 00), 200);
+		VOIngresoBoleto bol = new VOIngresoBoleto(1, "Pepe", 22, 10, 0, "PDE001");
 		
-		System.out.println(pa.getCodigo() + "\n");
-		System.out.println(pa.getDestino() + "\n");
-		System.out.println(pa.getHoraPartida() + "\n");
-		System.out.println(pa.getHoraLlegada() + "\n");
-		System.out.println(pa.getPrecioBase() + "\n");
-		System.out.println(pa.getCantMaxBoletosVendibles() + "\n");
-		System.out.println(pa.largoBoletos() + "\n");
-		
-		pa.insertarBoleto(bol);
-		pa.insertarBoleto(espe);
-		ps2.insertarBoleto(bol2);
-		
-		System.out.println(pa.contarRecaudado() + "\n");
-		System.out.println(pa.largoBoletos() + "\n");
-		
-		//dic.insert(pa);
-		dic.insert(ps2);
-		
-		if(dic.member(pa.getCodigo()))
+
+		try
 		{
-			System.out.println("\n el paseo esta en el diccionario");
-		}else
-			System.out.println("\n el paseo NO esta en el diccionario");
+			fachada.registroMinivan(mini);
+		}
+		catch(CantAsientosIncorrectaException e)
+		{
+			System.out.println("\n" + e.darMensaje());
+		}
+		catch(MinivanYaExisteException e)
+		{
+			System.out.println("\n" + e.darMensaje());
+		}
 		
-		if(dic.disponibleEnHorario(pa3.getHoraPartida(),pa3.getHoraLlegada()))
-			System.out.println("\n No Se solapan");
+		System.out.println("\n" + fachada.listadoMinivanes()[0].getCantAsientos());
+
+		try
+		{
+			fachada.registroPaseo(pas);
+		}
+		catch(PaseoYaExisteException e)
+		{
+			System.out.println("\n" + e.darMensaje());
+		}
+		catch(PrecioMenorA0Exception e)
+		{
+			System.out.println("\n" + e.darMensaje());
+		}
+		catch(NoHayMiniDisponibleException e)
+		{
+			System.out.println("\n" + e.darMensaje());
+		}
 		
 		
+		
+		try
+		{
+			System.out.println("\n" + fachada.listadoPaseosMinivan("ASE105")[0].getDestino());
+		}
+		catch(MinivanNoExisteException e)
+		{
+			System.out.println("\n" + e.darMensaje());
+		}
+		
+		
+		try
+		{
+			System.out.println("\n" + fachada.listarPaseosDestino("Punta del este")[0].getCodigo());
+		}
+		catch(NoHayConDestinoException e)
+		{
+			System.out.println("\n" + e.darMensaje());
+		}
+		
+		try
+		{
+			System.out.println("\n" + fachada.listadoPaseosBoletosDisponibles(10)[0].getPrecioBase());
+		}
+		catch(NoHayConBoletosException e)
+		{
+			System.out.println("\n" + e.darMensaje());
+		}
+		
+		try
+		{
+			System.out.println("\n" + fachada.listarPaseosDestino("Punta del este")[0].getBoletosDispoibles());
+		}
+		catch(NoHayConDestinoException e)
+		{
+			System.out.println("\n" + e.darMensaje());
+		}
+			
+		try
+		{
+			fachada.ventaBoleto(pas.getCodigo(), bol);
+		}
+		catch(PaseoNoExisteException e)
+		{
+			System.out.println("\n" + e.darMensaje());
+		}
+		catch(SinBoletosDispoiblesException e)
+		{
+			System.out.println("\n" + e.darMensaje());
+		}
+		catch(EdadInvalidaException e)
+		{
+			System.out.println("\n" + e.darMensaje());
+		}
+		catch(CelularInvalidoException e)
+		{
+			System.out.println("\n" + e.darMensaje());
+		}
+
+		try
+		{
+			System.out.println("\n" + fachada.listarPaseosDestino("Punta del este")[0].getBoletosDispoibles());
+		}
+		catch(NoHayConDestinoException e)
+		{
+			System.out.println("\n" + e.darMensaje());
+		}
+		
+		try
+		{
+			System.out.println("\n" + fachada.listadoBoletosVendidos(bol.getCodigoPaseo(), true)[0].getDescuento());
+		}
+		catch(PaseoNoExisteException e)
+		{
+			System.out.println("\n" + e.darMensaje());
+		}
+		catch(NoHayVendidosException e)
+		{
+			System.out.println("\n" + e.darMensaje());
+		}
+		
+		try
+		{
+			System.out.println("\n se recaudo " + fachada.montoRecaudadoPaseo(bol.getCodigoPaseo()));
+		}
+		catch(PaseoNoExisteException e)
+		{
+			System.out.println("\n" + e.darMensaje());
+		}
 		
 
 

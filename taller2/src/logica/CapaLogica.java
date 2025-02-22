@@ -1,13 +1,17 @@
 package logica;
 
 
+import java.io.Serializable;
+
 import logica.boleto.*;
 import logica.excepciones.*;
 import logica.minivan.*;
 import logica.paseo.*;
 import logica.valueObjects.*;
 
-public class CapaLogica {
+public class CapaLogica implements Serializable
+{
+	private static final long serialVersionUID = 1L;
 	
 	private Paseos paseos;
 	private Minivanes minivanes;
@@ -44,11 +48,11 @@ public class CapaLogica {
 	}
 	
 	//Registra un nuevo paseo
-	public void registroPaseo(VOIngresoPaseo pa) throws PaseoYaExisteException, PrecioMenorA0Exception, NoHayMiniDisponibleException
+	public void registroPaseo(VOIngresoPaseo pa) throws PrecioMenorA0Exception, PaseoYaExisteException, NoHayMiniDisponibleException
 	{
 		
 		
-		if(pa.getPrecioBase() <= 0)
+		if(pa.getPrecioBase() < 1)
 		{
 			throw new PrecioMenorA0Exception("El precio base debe ser mayor a 0");
 		}
@@ -93,14 +97,24 @@ public class CapaLogica {
 	}
 	
 	//Devuelve todos los paseos con el destino indicado
-	public VOPaseo[] listarPaseosDestino(String destino)
+	public VOPaseo[] listarPaseosDestino(String destino) throws NoHayConDestinoException
 	{
+		if(paseos.listarPaseosDestino(destino).length == 0)
+		{
+			throw new NoHayConDestinoException("No hay paseos con ese destino");
+		}
+		
 		return paseos.listarPaseosDestino(destino);
 	}
 	
 	//Devuelve un listado con por lo menos la cantida de boletos ingresada disponibles
-	public VOPaseo [] listadoPaseosBoletosDisponibles(int cant)
+	public VOPaseo [] listadoPaseosBoletosDisponibles(int cant) throws NoHayConBoletosException
 	{
+		if(paseos.listarPaseosBoletosDispoibles(cant).length == 0)
+		{
+			throw new NoHayConBoletosException("No hay paseos con esa cantidad de boletos disponibles");
+		}
+		
 		return paseos.listarPaseosBoletosDispoibles(cant);
 	}
 	
@@ -124,7 +138,7 @@ public class CapaLogica {
 			throw new EdadInvalidaException("La edad debe ser mayor o igual a 0");
 		}
 		
-		if(bol.getNumeroCelular() <0)
+		if(bol.getNumeroCelular() <1)
 		{
 			throw new CelularInvalidoException("EL numero de celular debe ser mayor a 0");
 		}
@@ -146,11 +160,15 @@ public class CapaLogica {
 	}
 	
 	//Devuelve un listado de boletos vendidos para el paseo ingresado
-	public VOBoleto[] listadoBoletosVendidos(String codigo, boolean especial) throws PaseoNoExisteException
+	public VOBoleto[] listadoBoletosVendidos(String codigo, boolean especial) throws PaseoNoExisteException, NoHayVendidosException
 	{
 		if(!paseos.member(codigo))
 		{
 			throw new PaseoNoExisteException("El paseo no existe");
+		}
+		if(paseos.find(codigo).getBoletosComprados().listadoPorTipo(especial).length == 0)
+		{
+			throw new NoHayVendidosException("No hay boletos de ese tipo vendidos para ese paseo");
 		}
 		
 		return paseos.find(codigo).getBoletosComprados().listadoPorTipo(especial);
