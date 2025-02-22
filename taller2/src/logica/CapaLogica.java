@@ -8,6 +8,7 @@ import logica.excepciones.*;
 import logica.minivan.*;
 import logica.paseo.*;
 import logica.valueObjects.*;
+import persistencia.Persistencia;
 
 public class CapaLogica implements Serializable
 {
@@ -186,5 +187,43 @@ public class CapaLogica implements Serializable
 		
 		
 	}
+	
+	//Guarda los datos del sistema
+	public void guardarDatos()
+	{
+		Persistencia file = new Persistencia();
+		
+		try
+		{
+			file.respaldar("Backup", paseos, minivanes);
+		}
+		catch(PersistenciaException e)
+		{
+			System.out.println("\n" + e.darMensaje());
+		}
+		
+	}
+	
+	public void cargarDatos()
+	{
+		Persistencia file = new Persistencia();
+		
+		try
+		{
+			Object[] datos = file.recuperar("Backup");
+			
+			paseos = (Paseos) datos[0];
+			minivanes = (Minivanes) datos[1];
+		}
+		catch (PersistenciaException e) 
+		{
+			System.out.println("\n" + e.darMensaje());
+		}
+		catch (ClassNotFoundException e) 
+		{
+			System.out.println("\n" + e.getMessage());
+		}
+		
 
+	}
 }

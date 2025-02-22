@@ -10,11 +10,13 @@ public class Principal {
 	public static void main(String[] args) {
 		
 		CapaLogica fachada = new CapaLogica();
-		VOIngresoMinivan mini = new VOIngresoMinivan("ASE105", "Ford", "Ecosport", 1);
+		VOIngresoMinivan mini = new VOIngresoMinivan("A5", "Ford", "Ecosport", 20);
 		VOIngresoPaseo pas = new VOIngresoPaseo("PDE001", "Punta del este", LocalTime.of(16, 00), LocalTime.of(18, 00), 200);
 		VOIngresoBoleto bol = new VOIngresoBoleto(1, "Pepe", 22, 10, 0, "PDE001");
 		
+		fachada.cargarDatos();
 
+		
 		try
 		{
 			fachada.registroMinivan(mini);
@@ -27,6 +29,7 @@ public class Principal {
 		{
 			System.out.println("\n" + e.darMensaje());
 		}
+		
 		
 		System.out.println("\n" + fachada.listadoMinivanes()[0].getCantAsientos());
 
@@ -47,7 +50,7 @@ public class Principal {
 			System.out.println("\n" + e.darMensaje());
 		}
 		
-		
+	
 		
 		try
 		{
@@ -70,7 +73,7 @@ public class Principal {
 		
 		try
 		{
-			System.out.println("\n" + fachada.listadoPaseosBoletosDisponibles(10)[0].getPrecioBase());
+			System.out.println("\n" + fachada.listadoPaseosBoletosDisponibles(1)[0].getPrecioBase());
 		}
 		catch(NoHayConBoletosException e)
 		{
@@ -138,7 +141,7 @@ public class Principal {
 			System.out.println("\n" + e.darMensaje());
 		}
 		
-
+		fachada.guardarDatos();
 
 		
 		
