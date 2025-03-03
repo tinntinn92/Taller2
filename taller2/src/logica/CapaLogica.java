@@ -24,7 +24,14 @@ public class CapaLogica extends UnicastRemoteObject implements ICapaLogica
 		paseos = new Paseos();
 		minivanes = new Minivanes();
 		monitor = Monitor.getInstancia();
-		this.cargarDatos();
+		
+		try
+		{
+			this.cargarDatos();
+		}finally
+		{
+			
+		}
 	
 	}
 	
