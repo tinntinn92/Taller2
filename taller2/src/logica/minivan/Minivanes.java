@@ -68,5 +68,11 @@ public class Minivanes implements Serializable
 		return resu;
 				
 	}
+	
+	//Devuelve la cantidad de elementos del arbol
+	public int largo()
+	{
+		return minivanes.size();
+	}
 
 }

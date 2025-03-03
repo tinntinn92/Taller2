@@ -2,6 +2,8 @@ package logica.boleto;
 
 public class Especial extends Boleto {
 	
+	private static final long serialVersionUID = 1L;
+	
 	private int descuento;
 	
 	public Especial(int num, String nom, int ed, long cel, int d)

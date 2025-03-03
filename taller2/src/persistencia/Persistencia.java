@@ -44,7 +44,7 @@ public class Persistencia {
 			catch (IOException e)
 			{
 				e.printStackTrace();
-				throw new PersistenciaException("Error recuperar");
+				throw new PersistenciaException("Error al recuperar");
 			}
 			catch(ClassNotFoundException  e)
 			{
